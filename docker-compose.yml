@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  rabbit:
+    container_name: hello-rabbitmq
+    image: rabbitmq:alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: always
+
+  hello_service:
+    container_name: hello-service
+    build: .
+    depends_on:
+      - rabbit
+    ports:
+      - "5000:5000"
+    links:
+      - rabbit
+    volumes:
+      - .:/var/app
+    environment:
+      - RABBIT_PASSWORD=guest
+      - RABBIT_USER=guest
+      - RABBIT_HOST=rabbit
+      - RABBIT_PORT=5672
