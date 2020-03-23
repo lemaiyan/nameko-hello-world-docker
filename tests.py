@@ -7,8 +7,6 @@ from service import RPCGreetingService, HttpGreetingService
 def test_rpc_greeting():
     greeting = worker_factory(RPCGreetingService)
     assert greeting.hello('World') == 'Hello World'
-    # greeting.hello.assert_called_once_with('World')
-
 
 @pytest.fixture
 def web_session(container_factory, web_config, web_session):
